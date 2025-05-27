@@ -85,7 +85,7 @@ if response.status_code == 200:
     print(hasil_akhir)
 
     # Simpan ke file
-    with open('hasil_scraping_safetravel.txt', 'w', encoding='utf-8') as f:
+    with open('data/hasil_scraping_safetravel.txt', 'w', encoding='utf-8') as f:
         f.write(hasil_akhir)
 else:
     print(f"Gagal mengambil data. Status: {response.status_code}")
