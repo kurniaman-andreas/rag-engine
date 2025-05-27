@@ -1,0 +1,16 @@
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore environment variables
+.env
+.env.*
+
+# Ignore Python virtual environment folder
+venv/
+ENV/
+env/
+
+# Ignore Windows executables
+*.exe
