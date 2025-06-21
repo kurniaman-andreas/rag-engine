@@ -1,5 +1,5 @@
-1. Informasi dari swipe-tab-1
 1. Informasi Umum
+Informasi Umum
 Singapura adalah negara kota yang berbentuk republik parlementer unikameral. Posisi strategis Singapura menjadikan negara tersebut sebagai pusat perniagaan dan jasa di kawasan Asia Tenggara.
 Kode Telepon:
 65
@@ -18,8 +18,8 @@ camera
 power
 photo_camera
 
-2. Informasi dari swipe-tab-2
 2. Persyaratan Masuk/Keluar
+Persyaratan Masuk/Keluar
 Informasi Bebas Visa
 Paspor Biasa/Reguler
 Bebas Visa (30 hari)
@@ -41,8 +41,8 @@ Pastikan Anda memiliki ijin yang sah untuk alasan bekerja bila ingin menetap, be
 Bandara Changi termasuk salah satu Bandara terbesar dengan intesitas penerbangan yang relatif tinggi, Apabila Anda bepergian sendiri perhatikan setiap rambu/tanda di sekitar Anda, dan usahakan berada di bandara 2 jam sebelum jadwal keberangkatan Anda.
 Simpan Paspor dan dokumen berharga Anda dikarenakan data identitas mungkin saja digunakan untuk tindak kriminal. Apabila Paspor dan dokumen penting Anda hilang, tercecer atau dicuri segera lapor polisi setempat dan hubungi Perwakilan RI di Singapura.
 
-3. Informasi dari swipe-tab-3
 3. Keselamatan dan Keamanan
+Keselamatan dan Keamanan
 A. Kriminalitas
 Waspadai wilayah-wilayah yang dianggap tidak aman. Singapura termasuk negara dengan wilayah yang kecil, namun aksi penipuan kerap terjadi terhadap ekspatriat, terutama dalam hal properti. Hindari transaksi tunai dalam jumlah besar.
 B. Terorisme
@@ -58,8 +58,8 @@ Monsoon
 terjadi pada bulan Desember - Maret dan Juni - September. Hujan deras dan angin kencang terjadi pada masa-masa tersebut.
 Sebagai salah satu pusat transportasi udara, bencana alam yag terjadi di dan sekitar Singapura dapat mengganggu penerbangan Anda. Silahkan hubungi agen perjalanan dan penyedia layanan penerbangan Anda ketika terjadi masalah.
 
-4. Informasi dari swipe-tab-4
 4. Hukum dan Kebiasaan Setempat
+Hukum dan Kebiasaan Setempat
 A. Tindak
 Pidana
 Setiap orang yang berada di wilayah Singapura, termasuk WNI, harus menghormati dan tunduk pada hukum dan peraturan setempat. Apabila Anda melanggar hukum dan peraturan setempat, Anda dapat dideportasi, ditangkap, atau ditahan oleh otoritas setempat. Hukum di Singapura diterapkan dan diawasi dengan ketat. Kejahatan terkait narkotika dan kejahatan berat seperti pembunuhan, penyerangan bersenjata dan penculikan dapat menyebabkan hukuman mati. Hukuman cambuk dapat diterapkan diantaranya pada pelaku pemerkosaan, pencurian, dan pemerasan.
@@ -99,15 +99,15 @@ Dilarang menyeberang jalan tidak pada tempatnya.
 Permen karet tidak dijual di Singapura karena dinilai mengganggu kebersihan.
 Dilarang melakukan pornoaksi di publik.
 
-5. Informasi dari swipe-tab-5
 5. Mata Uang dan Penukaran
+Mata Uang dan Penukaran
 Mata uang resmi Singapura adalah Dollar Singapura.
 Money Changer
 mudah ditemui ditempat-tempat umum, terutama lokasi wisata.
 ATM dan kartu kredit bisa digunakan secara umum.
 
-6. Informasi dari swipe-tab-6
 6. Asuransi dan Kesehatan
+Asuransi dan Kesehatan
 Sebelum Anda berangkat ke Singapura, kami sangat menyarankan Anda mengambil asuransi perjalanan komprehensif yang akan mencakup biaya medis di luar negeri, termasuk evakuasi medis. Pastikan bahwa asuransi Anda menjamin risiko-risiko yang mungkin Anda temui selama Anda berada di Singapura dan periksa apa saja kondisi ataupun risiko yang tidak dijamin dalam Polis. Biaya pengobatan WNI ketika berada di luar negeri adalah tanggung jawab pribadi sebagaimana ketika WNI berada di Indonesia.
 A. Wabah Penyakit
 Terjadi penyebaran virus Zika di Singapura. Pemerintah Singapura telah mengeluarkan titik bahaya dan penyebaran virus Zika. Ibu hamil yang akan mengunjungi Singapura harap melakukan konsultai medis terlebih dahulu dan lakukan langkah-langkah untuk menghindari gigitan nyamuk.
@@ -120,8 +120,8 @@ Nomor darurat nasional:
 Polisi – tekan 999
 Ambulans – tekan 995
 
-7. Informasi dari swipe-tab-7
 7. Telekomunikasi
+Telekomunikasi
 SIM card dapat dibeli dengan membawa paspor di semua toko retail telekomunikasi.
 Singtel
 M1
@@ -129,19 +129,52 @@ StarHub
 Circles.Life
 TPG Telecom
 
-8. Informasi dari swipe-tab-8
 8. Tempat Wisata
-Tidak ditemukan div tambahan
+a. Vintage Cameras ...
+b. Johor Art Gallery
+c. Army Museum of S...
+d. Chinese Heritage...
+e. NUS Museum
+f. Former Ford Fact...
+g. Singapore Discov...
+h. Punggol Waterway...
+i. Palawan Pirate S...
+j. Palawan Pirate S...
+k. Skyline Luge
+l. Sentosa CineBlast
+m. Lake of Dreams
+n. Gemini Inflatabl...
+o. SWP (Singapore W...
+p. Rainbow Reef Div...
 
-9. Informasi dari swipe-tab-9
 9. Kuliner
-Tidak ditemukan div tambahan
+a. Indobox
+b. Swensen's - ION ...
+c. Singapore Seafoo...
+d. McDonald's Marin...
+e. Subway
+f. Shell
+g. Shell
+h. Choices
+i. Cumulus
+j. Buttercake N Cre...
+k. Riders Cafe
+l. Emicakes
+m. Emicakes Clementi
+n. Famous Amos
+o. Balmoral Bakery
+p. Cake Avenue
 
-10. Informasi dari swipe-tab-10
 10. Tempat Ibadah
-Tidak ditemukan div tambahan
+a. Sultan Mosque
+b. Assyafaah Mosque
+c. Masjid An-Nur
+d. Masjid Al-Iman
+e. Masjid Ar-Raudhah
+f. Masjid Al-Mukmin...
+g. Sultan Abu Bakar...
 
-11. Informasi dari swipe-tab-11
 11. Fasilitas Kesehatan
-Tidak ditemukan div tambahan
+a. Galderma Singapo...
+b. Unity
 

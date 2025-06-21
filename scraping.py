@@ -50,7 +50,7 @@
 #     scraped_data = scrape_data()
 #     print("Scraping selesai! Data disimpan.")
 
-############################################### coba ####################
+############################################## coba ####################
 # import requests
 # from bs4 import BeautifulSoup
 
@@ -68,7 +68,7 @@
 #     hasil_akhir = ""
 
 #     # Loop dari swipe-tab-1 hingga swipe-tab-10
-#     for i in range(1, 11):
+#     for i in range(1, 8):
 #         tab_id = f'swipe-tab-{i}'
 #         div_konten = soup.find('div', id=tab_id)
 
@@ -92,128 +92,196 @@
 # else:
 #     print(f"Gagal mengambil data. Status: {response.status_code}")
 
-# import requests
-# from bs4 import BeautifulSoup
+# ################################# SELENIUM ###########################
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# import time
+# import re
+# import string  # Untuk huruf a, b, c, ...
 
-# url = 'https://safetravel.kemlu.go.id/country-info/b5b7212a-4cb2-43df-95d8-6c8c742a41de'
+# # === 1. Setup Driver ===
+# options = Options()
+# options.add_argument("--start-maximized")
+# # options.add_argument("--headless")
+# driver = webdriver.Chrome(options=options)
 
-# headers = {
-#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
-# }
+# try:
+#     # === 2. Buka Halaman ===
+#     url = "https://safetravel.kemlu.go.id/country-info/b5b7212a-4cb2-43df-95d8-6c8c742a41de"
+#     driver.get(url)
 
-# response = requests.get(url, headers=headers)
+#     # === 3. Mapping tab dan container_id ===
+#     tab_mapping = {
+#         "tab8": "safe-travel-show-more-tourist",
+#         "tab9": "safe-travel-show-more-culinary",
+#         "tab10": "safe-travel-show-more-worship",
+#         "tab11": "safe-travel-show-more-hospital"
+#     }
 
-# if response.status_code == 200:
-#     soup = BeautifulSoup(response.text, 'html.parser')
-#     hasil_akhir = ""
+#     for tab_label, container_id in tab_mapping.items():
+#         WebDriverWait(driver, 60).until(
+#             EC.element_to_be_clickable((By.CSS_SELECTOR, f"label[for='{tab_label}']"))
+#         ).click()
 
-#     for i in range(1, 12):
-#         tab_id = f'swipe-tab-{i}'
-#         div_konten = soup.find('div', id=tab_id)
+#         tab_number = re.search(r'\d+', tab_label).group()
+#         swipe_tab_id = f"swipe-tab-{tab_number}"
 
-#         hasil_akhir += f"{i}. Informasi dari {tab_id}\n"
+#         WebDriverWait(driver, 30).until(
+#             EC.visibility_of_element_located((By.ID, swipe_tab_id))
+#         )
 
-#         if div_konten:
-#             for h4 in div_konten.find_all('h4'):
-#                 h4.string = f"{i}. {h4.get_text(strip=True)}"
-#             teks = div_konten.get_text(separator='\n', strip=True)
-#             hasil_akhir += teks + '\n'
+#         time.sleep(2)
+
+#         try:
+#             tab_section = driver.find_element(By.ID, swipe_tab_id)
+#             h4_title = tab_section.find_element(By.TAG_NAME, "h4").text.strip()
+#         except:
+#             h4_title = "Judul Tidak Ditemukan"
+
+#         print(f"\n{tab_number}. {h4_title}\n")
+
+#         WebDriverWait(driver, 30).until(
+#             EC.visibility_of_element_located((By.ID, container_id))
+#         )
+
+#         container = driver.find_element(By.ID, container_id)
+#         cards = container.find_elements(By.CLASS_NAME, "card")
+
+#         if not cards:
+#             print(f"❌ Tidak ada konten ditemukan pada tab {tab_label}.")
 #         else:
-#             hasil_akhir += f"{i}. Tidak ditemukan konten untuk {tab_id}\n"
+#             for i, card in enumerate(cards):
+#                 try:
+#                     title_span = card.find_element(By.CLASS_NAME, "card-title")
+#                     # Menggunakan huruf a, b, c, ...
+#                     if i < 26:
+#                         letter = string.ascii_lowercase[i]
+#                     else:
+#                         letter = f"{string.ascii_lowercase[i // 26 - 1]}{string.ascii_lowercase[i % 26]}"  # aa, ab, ...
+#                     print(f"{letter}. {title_span.text}")
+#                 except:
+#                     print(f"{letter}. (judul tidak ditemukan)")
 
-#         # Tambahan berdasarkan isi kartu
-#         extra_ids = {
-#             8: 'safe-travel-show-more-tourist',
-#             9: 'safe-travel-show-more-culinary',
-#             10: 'safe-travel-show-more-worship',
-#             11: 'safe-travel-show-more-hospital',
-#         }
+# except Exception as e:
+#     print("Terjadi kesalahan:", e)
 
-#         if i in extra_ids:
-#             extra_div = soup.find('div', id=extra_ids[i])
-#             if extra_div:
-#                 card_titles = extra_div.select('span.card-title')
-#                 if card_titles:
-#                     hasil_akhir += "\nInformasi Tambahan:\n"
-#                     for title in card_titles:
-#                         hasil_akhir += f"- {title.get_text(strip=True)}\n"
-#                 else:
-#                     hasil_akhir += "Tidak ditemukan informasi tambahan di .card-title\n"
-#             else:
-#                 hasil_akhir += "Tidak ditemukan div tambahan\n"
+# finally:
+#     driver.quit()
 
-#         hasil_akhir += '\n'
-
-#     print(hasil_akhir)
-
-#     with open('data/hasil_scraping_safetravel.txt', 'w', encoding='utf-8') as f:
-#         f.write(hasil_akhir)
-# else:
-#     print(f"Gagal mengambil data. Status: {response.status_code}")
+############################### GABUNGAN ####################################
+import requests
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import re
+import string
+import os
 
-# === 1. Setup Driver ===
-options = Options()
-options.add_argument("--start-maximized")  # Buka browser dengan ukuran penuh
-# options.add_argument("--headless")       # Uncomment jika ingin headless
-driver = webdriver.Chrome(options=options)
+# === Hasil akhir gabungan ===
+hasil_akhir = ""
 
-# === 2. Buka Halaman ===
-url = "https://safetravel.kemlu.go.id/country-info/b5b7212a-4cb2-43df-95d8-6c8c742a41de"  # ganti dengan link yang kamu inspect
-driver.get(url)
-
-# Tunggu sampai tab swipe muncul (naikkan timeout)
-WebDriverWait(driver, 60).until(EC.visibility_of_element_located((By.ID, "swipe-tab-8")))
-
-# === 3. Data Tab ===
-tabs = {
-    "swipe-tab-8": "safe-travel-show-more-tourist",    # Tempat Wisata
-    "swipe-tab-9": "safe-travel-show-more-culinary",   # Kuliner
-    "swipe-tab-10": "safe-travel-show-more-worship",   # Tempat Ibadah
-    "swipe-tab-11": "safe-travel-show-more-hospital",  # Fasilitas Kesehatan
+# === PART 1: Requests untuk tab 1 - 7 ===
+url = 'https://safetravel.kemlu.go.id/country-info/b5b7212a-4cb2-43df-95d8-6c8c742a41de'
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
 }
 
-# === 4. Loop setiap tab ===
-for tab_id, content_id in tabs.items():
-    print(f"\n{tab_id}: Mengecek konten dari {content_id}...")
+response = requests.get(url, headers=headers)
 
-    try:
-        # Tunggu tab bisa diklik dengan timeout yang lebih panjang
-        tab_element = WebDriverWait(driver, 30).until(
-            EC.element_to_be_clickable((By.ID, tab_id))
-        )
-        tab_element.click()
+if response.status_code == 200:
+    soup = BeautifulSoup(response.text, 'html.parser')
+    for i in range(1, 8):
+        tab_id = f'swipe-tab-{i}'
+        div_konten = soup.find('div', id=tab_id)
 
-        # Setelah klik, beri delay agar konten benar-benar render
-        time.sleep(5)
+        if div_konten:
+            h4 = div_konten.find('h4')
+            judul = h4.get_text(strip=True) if h4 else f"Tab {i}"
+            hasil_akhir += f"{i}. {judul}\n"
 
-        # Tunggu konten benar-benar visible
+            isi = div_konten.get_text(separator='\n', strip=True)
+            hasil_akhir += isi + "\n\n"
+        else:
+            hasil_akhir += f"{i}. Tidak ditemukan konten untuk {tab_id}\n\n"
+else:
+    hasil_akhir += f"Gagal mengambil data tab 1-7. Status: {response.status_code}\n\n"
+
+# === PART 2: Selenium untuk tab 8 - 11 ===
+options = Options()
+options.add_argument("--start-maximized")
+# options.add_argument("--headless")
+driver = webdriver.Chrome(options=options)
+
+try:
+    driver.get(url)
+
+    tab_mapping = {
+        "tab8": "safe-travel-show-more-tourist",
+        "tab9": "safe-travel-show-more-culinary",
+        "tab10": "safe-travel-show-more-worship",
+        "tab11": "safe-travel-show-more-hospital"
+    }
+
+    for tab_label, container_id in tab_mapping.items():
+        WebDriverWait(driver, 60).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, f"label[for='{tab_label}']"))
+        ).click()
+
+        tab_number = re.search(r'\d+', tab_label).group()
+        swipe_tab_id = f"swipe-tab-{tab_number}"
+
         WebDriverWait(driver, 30).until(
-            EC.visibility_of_element_located((By.ID, content_id))
+            EC.visibility_of_element_located((By.ID, swipe_tab_id))
         )
 
-        # Ambil isi dari kontennya
-        content_div = driver.find_element(By.ID, content_id)
-        cards = content_div.find_elements(By.CLASS_NAME, "card")
+        time.sleep(2)
+
+        try:
+            tab_section = driver.find_element(By.ID, swipe_tab_id)
+            h4_title = tab_section.find_element(By.TAG_NAME, "h4").text.strip()
+        except:
+            h4_title = "Judul Tidak Ditemukan"
+
+        hasil_akhir += f"{tab_number}. {h4_title}\n"
+
+        WebDriverWait(driver, 30).until(
+            EC.visibility_of_element_located((By.ID, container_id))
+        )
+
+        container = driver.find_element(By.ID, container_id)
+        cards = container.find_elements(By.CLASS_NAME, "card")
 
         if not cards:
-            print("❌ Tidak ditemukan konten dalam div.")
+            hasil_akhir += f"❌ Tidak ada konten ditemukan pada tab {tab_label}.\n\n"
         else:
             for i, card in enumerate(cards):
                 try:
-                    title = card.find_element(By.CLASS_NAME, "card-title").text
-                    print(f"{i+1}. {title}")
-                except Exception:
-                    print(f"{i+1}. (judul tidak ditemukan)")
-    except Exception as e:
-        print(f"❌ Gagal mengambil data: {e}")
+                    title_span = card.find_element(By.CLASS_NAME, "card-title")
+                    if i < 26:
+                        letter = string.ascii_lowercase[i]
+                    else:
+                        letter = f"{string.ascii_lowercase[i // 26 - 1]}{string.ascii_lowercase[i % 26]}"
+                    hasil_akhir += f"{letter}. {title_span.text}\n"
+                except:
+                    hasil_akhir += f"{letter}. (judul tidak ditemukan)\n"
+            hasil_akhir += "\n"
 
-# === 5. Selesai ===
-driver.quit()
+except Exception as e:
+    hasil_akhir += f"Terjadi kesalahan: {e}\n"
 
+finally:
+    driver.quit()
 
+# === Simpan ke file ===
+os.makedirs('data', exist_ok=True)
+with open('data/hasil_scraping_safetravel.txt', 'w', encoding='utf-8') as f:
+    f.write(hasil_akhir)
+
+print("✅ Scraping selesai. Data disimpan di 'data/hasil_scraping_safetravel.txt'")

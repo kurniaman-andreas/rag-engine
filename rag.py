@@ -183,7 +183,7 @@
 #         print_typing_effect(f"Bot: {response}")
     
 #     chat_history.clear()
-##################################################################
+################################### OPEN AI ###############################
 import os
 from dotenv import load_dotenv
 import time
@@ -205,6 +205,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langsmith import Client
 # from langsmith.evaluation import run_on_dataset
 from typing_extensions import Annotated, TypedDict
+from langchain.schema import Document
 
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -263,7 +264,12 @@ def load_pdf_data(file_path):
     loader = PyMuPDFLoader(file_path=file_path)
     return loader.load()
 
-def split_docs(documents, chunk_size=1000, chunk_overlap=20):
+def load_txt_data(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        text = f.read()
+    return [Document(page_content=text)]
+
+def split_docs(documents, chunk_size=800, chunk_overlap=80):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap
@@ -301,8 +307,11 @@ def initialize_chatbot():
     embed = load_embedding_model()
 
     # Load and process documents
-    docs = load_pdf_data(file_path="data/informasi-singapura.pdf")
-    documents = split_docs(documents=docs)
+    # docs1 = load_pdf_data(file_path="data/informasi-singapura.pdf")
+    docs1 = load_pdf_data(file_path="data/hasil_scraping_safetravel.pdf")
+    docs2 = load_pdf_data(file_path="data/Buku_Panduan_Revisi_WNI2.pdf")
+    all_docs =docs1 + docs2
+    documents = split_docs(documents=all_docs)
     vectorstore = create_embeddings(documents, embed)
     retriever = vectorstore.as_retriever()
 
@@ -387,8 +396,6 @@ if __name__ == "__main__":
 # from colorama import init
 # from IPython.display import display, Markdown
 # import textwrap
-
-# from langchain_openai import OpenAI, OpenAIEmbeddings
 # from langchain_community.document_loaders import PyMuPDFLoader
 # from langchain.text_splitter import RecursiveCharacterTextSplitter
 # from langchain_community.vectorstores import FAISS
@@ -407,8 +414,11 @@ if __name__ == "__main__":
 # from langchain_google_genai import ChatGoogleGenerativeAI
 # from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
+# from langchain.schema import Document
+
 # load_dotenv()
 # gemini_api = os.getenv("GEMINI_API_KEY")
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "D:/ITS/TA/final-rag/gen-lang-client-0503100634-604f840ec6f0.json"
 
 # # Initialize global variables
 # llm = None
@@ -432,18 +442,24 @@ if __name__ == "__main__":
 # # {context}
 # # """
 # templateSystem = """
-# You are a reliable and respectful assistant designed to support Indonesian citizens (WNI) abroad by providing accurate and relevant information regarding protection and services.  
-# Answer the user's questions only using the given context related to WNI protection services, official information from Kementerian Luar Negeri, and related sources.  
-# If you don't know the answer, just say "maaf, saya tidak tahu." Do not make up answers.  
-# At the end of your answer, ask if the answer was helpful.  
-# If yes, express your happiness to assist. If not, apologize sincerely and offer to help further.  
-# Answer in Bahasa Indonesia or English depending on the language of the question, with an empathetic tone.  
-# If asked about your identity or creator, do not mention any name.  
-# If asked what you can do, say you assist in answering questions related to protection and services for WNI abroad.
+# You are a reliable and respectful assistant designed to support Indonesian citizens (WNI) abroad—especially in Singapore—by providing accurate and relevant information regarding protection and related services.
+
+# Only answer questions using the provided context, which comes from official sources such as the Indonesian Ministry of Foreign Affairs, the Peduli WNI Handbook, and the Safe Travel platform.
+
+# If you do not know the answer, say: "maaf, saya tidak tahu." Do not make up or assume information.
+
+# Answer in Bahasa Indonesia or English depending on the user's question, using an empathetic tone.
+
+# At the end of your response, ask whether the answer was helpful.  
+# If yes, express your happiness to assist. If not, sincerely apologize and offer to help further.
+
+# If asked about your identity or who created you, do not mention any name.  
+# If asked what you can do, say that you assist with questions related to protection and services for Indonesian citizens abroad.
 
 # Context:
 # {context}
 # """
+
 
 # # templateContext = """
 # # Given a chat history and the latest user question \
@@ -453,18 +469,23 @@ if __name__ == "__main__":
 # # """
 
 # templateContext = """
-# Given a chat history and the latest user question which might reference previous conversation, reformulate the question into a standalone question that can be understood without any prior context.  
+# Given the chat history and the latest user question—which may refer to previous messages—reformulate the question into a clear, standalone version that can be understood without any prior context.  
 # If the question is already clear on its own, return it as is.  
-# Focus on questions about protection and services for Indonesian citizens abroad.
-
+# Focus only on questions related to protection and services for Indonesian citizens (WNI) abroad, especially in Singapore.
 # """
+
 
 # # Core functions
 # def load_pdf_data(file_path):
 #     loader = PyMuPDFLoader(file_path=file_path)
 #     return loader.load()
 
-# def split_docs(documents, chunk_size=1000, chunk_overlap=20):
+# def load_txt_data(file_path):
+#     with open(file_path, "r", encoding="utf-8") as f:
+#         text = f.read()
+#     return [Document(page_content=text)]
+
+# def split_docs(documents, chunk_size=600, chunk_overlap=20):
 #     text_splitter = RecursiveCharacterTextSplitter(
 #         chunk_size=chunk_size,
 #         chunk_overlap=chunk_overlap
@@ -477,7 +498,7 @@ if __name__ == "__main__":
 #     return vectorstore
 
 # def load_embedding_model():
-#     return GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-exp-03-07")
+#     return GoogleGenerativeAIEmbeddings(model="models/text-embedding-004", task_type="retrieval_document")
 
 # def format_docs(docs):
 #     return "\n\n".join(doc.page_content for doc in docs)
@@ -501,15 +522,20 @@ if __name__ == "__main__":
 #     llm = ChatGoogleGenerativeAI(
 #     model="gemini-2.0-flash",
 #     temperature=0,
-#     max_tokens=None,
-#     timeout=None,
-#     max_retries=2,
 #     api_key=gemini_api)
 #     embed = load_embedding_model()
 
 #     # Load and process documents
-#     docs = load_pdf_data(file_path="data/informasi-singapura.pdf")
-#     documents = split_docs(documents=docs)
+#     # docs1 = load_pdf_data(file_path="data/informasi-singapura.pdf")
+#     docs1 = load_txt_data(file_path="data/hasil_scraping_safetravel.txt")
+#     for doc in docs1:
+#         doc.metadata["source"] = "safetravel"
+#     docs2 = load_pdf_data(file_path="data/Buku_Panduan_Revisi_WNI2.pdf")
+#     for doc in docs2:
+#         doc.metadata["source"] = "lapor_diri"
+#     all_docs = docs1 + docs2
+    
+#     documents = split_docs(documents=all_docs)
 #     vectorstore = create_embeddings(documents, embed)
 #     retriever = vectorstore.as_retriever()
 
@@ -570,7 +596,7 @@ if __name__ == "__main__":
 # # Main execution (only when run directly)
 # if __name__ == "__main__":
 #     initialize_chatbot()
-#     print_typing_effect("Hallo, selamat datang saya chatbot, ada yang bisa saya bantu? ✋")
+#     print_typing_effect("Hallo, selamat datang saya chatbot Pelayanan dan Perlindungan Singapura, ada yang bisa saya bantu? ✋")
 
 #     count = 0
 #     while True:
