@@ -16,4 +16,4 @@ env/
 *.exe
 
 #google client
-*.json
+gen-lang-client-0503100634-604f840ec6f0.json

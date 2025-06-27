@@ -855,11 +855,11 @@ ground_truths = [
     # "Pertama, user dapat memilih menu ‘Penguman’, kemudian sistem akan menampilkan halaman pengumuman lalu klik judul pengumuman untuk melihat detail informasi pengumuman tersebut.",
 
     # 15
-    "Pada menu pengumuman, user juga dapat melakukan pencarian pengumuman dengan mengetikkan kata kunci pada ‘Search Bar’, maka sistem langsung menampilkan data pengumuman yang sesuai dengan pencarian yang dilakukan user.",
+    "Pada menu pengumuman, user juga dapat melakukan pencarian pengumuman dengan mengetikkan kata kunci pada Search Bar, maka sistem langsung menampilkan data pengumuman yang sesuai dengan pencarian yang dilakukan user.",
 
     # 16
     "Menu Referensi menampilkan referensi hukum terkait perlindungan WNI di luar negeri.",
-    "Untuk dapat mengakses menu tersebut, user dapat memilih ‘Referensi’ ,kemudian sistem akan menampilkan halaman referensi yang telah dikelompokan berdasarkan kategori",
+    "Untuk dapat mengakses menu tersebut, user dapat memilih Referensi ,kemudian sistem akan menampilkan halaman referensi yang telah dikelompokan berdasarkan kategori",
 
     # 17
     "User dapat melihat dan mengubah data pada menu Profil jika status lapor dirinya  sudah valid dengan klik dropdown yang terdapat dibagian kanan atas pada menu profil ",
