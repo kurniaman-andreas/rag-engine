@@ -281,7 +281,7 @@ finally:
 
 # === Simpan ke file ===
 os.makedirs('data', exist_ok=True)
-with open('data/hasil_scraping_safetravel.txt', 'w', encoding='utf-8') as f:
+with open('data/hasil_scraping_safetravel_2.txt', 'w', encoding='utf-8') as f:
     f.write(hasil_akhir)
 
 print("✅ Scraping selesai. Data disimpan di 'data/hasil_scraping_safetravel.txt'")

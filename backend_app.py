@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from chatbot_gemini import initialize_chatbot, chatting  
+from chatbot_openai import initialize_chatbot, chatting  
 
 app = Flask(__name__)
 CORS(app)  # izinkan akses dari Next.js (port 3000)
